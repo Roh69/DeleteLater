@@ -1,0 +1,23 @@
+1)Create a normal Web Api project.(DBFirst or CodeFirst)
+2)Create a new MVC project.
+3)Add packages->System.Net.Http
+		->Newtonsoft.json
+		->Asp.net.WebApi.client
+4)Add these to appsetting.json
+	"Newtonsoft.Json": "9.0.2-betal",
+        "System.Net.Http": "4.3.0-preview1-24530-04",
+
+5)In Models Create a class with same name and attribute as that in your WebApi project.
+
+6)Create a Helper folder and a class with a method that returns the BaseAddress/Url of your localhost of WebApi Project.
+	
+	public HttpClient Initial()
+        {
+            var client = new HttpClient();
+            client.BaseAddress=new Uri("https://localhost:44354/api/Customers/");
+            return client;
+        } 
+7)Add a controller which performs the required CRUD opertaion
+8)Generate a View for All the CRUD operaion Methods.
+9)Set properties to mulitple startup projects  and start all projects
+10)Save and run your Application

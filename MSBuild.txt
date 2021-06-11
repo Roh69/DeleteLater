@@ -1,0 +1,98 @@
+Elements Of MSBuid
+==================================================================================
+The Microsoft Build Engine (MSBuild) is the build platform for Microsoft and Visual Studio.
+and used to build products in build environments where Visual Studio is not installed.
+
+1)Items
+========
+Items represent inputs into the build system and are grouped into item collections based on their user-defined collection names.
+These item collections can be used as parameters for tasks, which use the individual items contained in the collection to perform the steps of the build process.
+
+Items are declared in the project file by creating an element with the name of the item collection as a child of an ItemGroupelement. 
+For example, the following code creates an item collection named Compile, which includes two files.
+
+Copy
+<ItemGroup>
+    <Compile Include = "file1.cs"/>
+    <Compile Include = "file2.cs"/>
+</ItemGroup>
+
+
+2)Properties
+============
+Properties represent key/value pairs that can be used to configure builds. Items and properties differ in the following ways:
+
+Items are stored in collections, while properties contain a single scalar value.
+Items cannot be removed from item collections, while properties can have their values changed after they are defined.
+Properties are declared by creating an element with the name of the property as a child of a PropertyGroup element.
+ For example, the following code creates a property named BuildDir with a value of Build.
+
+<PropertyGroup>
+    <BuildDir>Build</BuildDir>
+</PropertyGroup>
+
+
+
+3)Tasks
+==========
+Tasks and Targets specify what to do. Tasks are contained in Targets. Targets consist of one (or zero) or more Tasks.
+ MSBuild installs many tasks, including Csc, Vsc, AspNetCompiler and Message. 
+
+The execution logic of a task is written in managed code and mapped to MSBuild with the UsingTask element.
+You execute a task in an MSBuild project file by creating an element with the name of the task as a child of a Target element.
+ Tasks usually accept parameters, which are passed as attributes of the element. MSBuild item collections and properties can be used as parameters
+. For example, the following code calls the MakeDir task and passes it the value of the BuildDir property declared in the previous example.
+
+
+<Target Name="MakeBuildDirectory">
+    <MakeDir
+        Directories="$(BuildDir)" />
+</Target>
+
+
+
+
+4)Targets
+===========
+Targets group tasks together in a particular order and expose sections of the project file as entry points into the build process.
+ Targets are often grouped into logical sections to allow for expansion and increase readability.
+ Breaking the build steps into many targets allows you to call one piece of the build process from other targets without having
+ to copy that section of code into each target. For example, if several entry points into the build process require references to be built, you can
+ create a target that builds references and run that target from every necessary entry point.
+
+Targets are declared in the project file with the Target element. For example, the following code creates a target named Compile,
+ which then calls the Csc task with the item collection declared in the previous example.
+
+<Target Name="Compile">
+    <Csc Sources="@(Compile)" />
+</Target>
+
+
+
+
+=============================================================================================================================
+Build Using Command Prompt
+=============================================================================================================================
+1)Create a simple console Hello World!! Application.
+2)Open Command Prompt and Navigate to the folder containing the .sln file
+3)Build using  Msbuild.exe i.e; by giving its path as follows
+	
+	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\msbuild.exe"
+	
+	->The Project will be built in Default Debug Mode(Open Debug folder and run the .exe file)
+
+4)To build the project in Release mode
+	 	
+	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\msbuild.exe" -property:Configuration=Release
+
+	->The Project will be built in Release Mode now(Open Release folder and run the .exe file)
+
+
+Create and Build Using Command Prompt
+===========================================
+1)mkdir helloworld
+2)cd helloworld
+3)dotnet new
+4)dotnet new console
+5)dir
+6)dotnet run

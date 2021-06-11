@@ -1,0 +1,40 @@
+********************************************DATABASE FIRST APPROACH******************************
+1)Create DB and req tables in Sql Server(Give a primary key)
+2)Create new ASP.net core Web Api project in VS
+3)Add folder named Models
+4)Install All Required packages(EF-4 + swashbuckle.AspNetCore)
+5)Open console and give scaffold-DbContext cmd
+	i.e;** Scaffold-DbContext "Server=DESKTOP-2IJU36R;Database=MiniProject;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models **
+	->Models and Context class will be generated automatically.
+6)AppSetting: Add Connection String with connection name
+7)Add Repository Folder(IclassRepository and classRepository )
+8)Add Service and Repository in Startup.cs
+	
+	ConfigureServices() 
+	{
+	 
+	 services.AddDbContext<EF_Book_Publisher_DBContext>(item => item.UseSqlServer(Configuration.GetConnectionString("EF_BookPublisherDBConnection")));
+         
+	 services.AddScoped<IBookRepository, BookRepository>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "EF_Dept_Emp_App", Version = "v1" });
+            });
+	}
+	
+	Configure()
+	{
+		if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EF_Dept_Emp_App v1"));
+            }
+
+	}
+
+
+8)Provide implementation for repositories
+9) create controller
+

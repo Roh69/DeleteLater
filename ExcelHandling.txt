@@ -1,0 +1,11 @@
+Excel File Handling
+=====================================================
+
+1)Create a console app
+2)Add dependency->Add COM Reference->search for excel-> Add Microsoft Excel 16.0 Object library
+3)Add following libraries
+	using Microsoft.Office.Interop.Excel;
+	using _Excel = Microsoft.Office.Interop.Excel;
+	using System.Runtime.InteropServices;
+	using System.IO;
+

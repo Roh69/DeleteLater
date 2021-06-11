@@ -1,0 +1,98 @@
+1. Create user model
+2. Go to app settings 
+"Jwt": {
+    "Key": "ThisismySecretKey",
+    "Issuer":  "Test.com"
+  }
+
+3a. Go to Startup.cs and add in configureservice
+
+services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    };
+                });
+
+3b.
+       ADD
+           app.userauthentication();
+in void configure method!
+
+
+
+
+4. Create new login controller
+
+
+public class LoginController : ControllerBase
+    {
+        private IConfiguration _config;
+
+        public LoginController(IConfiguration config)
+        {
+            _config = config;
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Login([FromBody] UserModel login)
+        {
+            IActionResult response = Unauthorized();
+            var user = AuthenticateUser(login);
+
+            if (user !=null)
+            {
+                var tokenString = GenerateJSONWebToken(user);
+                response = Ok(new { token = tokenString });
+            }
+            return response;
+        }
+
+         private string GenerateJSONWebToken(UserModel userInfo)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                /* new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
+                   new Claim(JwtRegisteredClaimNames.Email, userInfo.EmailId),*/
+                  new Claim(ClaimTypes.Role,userInfo.RoleModel)
+            };
+
+            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
+                _config["Jwt:Issuer"],
+                claims,
+                expires: DateTime.Now.AddMinutes(120),
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private UserModel AuthenticateUser(UserModel login)
+        {
+             UserModel user= null;
+            //Validate the user credentials
+
+            if(login.Username=="Abhishek" && login.Password=="123")
+            {
+                user = new UserModel { Username = "Abhishek", EmailId = "abhishek@gmail.com", Password = "123" , RoleModel=RoleModel.Admin};
+            }
+
+            else if(login.Username == "Rohit" && login.Password == "321")
+            {
+                user = new UserModel { Username = "Rohit", EmailId = "rohit@gmail.com", Password = "321", RoleModel=RoleModel.User};
+            }
+
+            return user;
+        }
+    }

@@ -1,0 +1,18 @@
+What is MSTest?
+MSTest is one type of framework that provides the facility to test the code without using any third-party tool.
+It helps in writing effective unit tests using MSTest framework to test software applications.
+
+MSTest is a number-one open-source test framework that is shipped along with the Visual Studio IDE.
+It is also referred to as the Unit Testing Framework. However, MSTest is the same within the developer community.
+
+MSTest is used to run tests. This command has a lot of options that you can use to customize your test run various NET applications.
+
+
+ANNOTATION		DESCRIPTION
+[TestInitialize]	Marks a method that should be called before each test method. One such method should be present per test class.
+[TestClass]		Marks a class that contains tests.
+[TestMethod]		Marks a method, i.e., an actual test case in the test class.
+[AssemblyInitialize]	Marks a method that should be called once before the execution of any method in the assembly code.
+[AssemblyCleanup]	Marks a method that should be called once after the execution of any method in the assembly code.
+[ClassInitialize]	Methods that will be called only once before executing any of the test methods present in that class.
+[ClassCleanup]		Methods that will be called only once after executing the test methods present in that class.

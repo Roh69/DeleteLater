@@ -1,0 +1,77 @@
+1)Create an account on github.
+2)Download gitbash for windowsx64.
+-----------------------------------------------------------
+1)Create a new repository on github and give a name to the repository.
+	-->check the add readme block.
+	-->click on create repository button.
+	(Creates a new repository with readme file and initial commit)
+
+2)Open gitbash in your system and change directory to working location
+	i.e; cd E:
+	     cd foldername
+
+3)git init(initializes a git repository named .git(hidden folder))
+
+4)Add remote repository using > git remote add origin "https link of your repository"
+	->goto github and current repository, dropdown on code button and copy the http link
+
+5)To start working with latest changes in project/repository on your local repository execute pull commmand
+	> git pull origin (master)/(main) -----repository name on the git
+
+6)create text files in the project folder(pc), and add to local repository using 
+	>git add filename.txt
+	-----------------------------------------------------
+	=>Add all files at once using > git add -A
+
+7)Check status of files in Index(intermediate storage  before commiting files to local repository)
+	>git status
+8)Commit files from index to local repos using
+	>git commit -m "some msg"
+	---------------------------------------------------------
+	=>Commit all files at once using > git commit -a -m "some msg"
+
+9)On running Commit config your global username and email
+	>git config --global user.email "rohit@gmail.com"
+	>git config -- global user.name "Roh69"
+
+====================================================================================
+BRANCHING
+====================================================================================
+> git branch firstbranch(give your branchname)
+> git checkout firstbranch(to the branch which we want to use)
+===>ls               : displays list of all files present in the branch that we're currently working on.
+===>cat filename.ext : displays the contents  of the file
+======================================================================================
+MERGING: Checkout to destination branch then,
+=====================================================================================
+> git merge firstbranch(branchname that you want to merge with destination/master branch)
+
+=====================================
+REBASE:Similar to merging
+===========================================
+> git rebase firstbranch
+
+============================================
+PUSH
+============================================
+> git push origin firstbranch
+	-->asks for password(confirm and continue)
+#local repository  will now be pushed to central server
+
+=========================================================
+REVERT BACK CHANGES
+==========================================================
+> log
+->copy first 8-10 hexa digits then
+>git checkout  paste these hexadigits filename.ext
+--------------------
+To Check changes
+> cat filename.ext
+
+
+========================================================
+MOVE FILES
+==========================================================
+mkdir logs 
+git mv general.log logs/ 
+

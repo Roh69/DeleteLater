@@ -1,0 +1,25 @@
+1. Create an ASP.NET WEB APP-> MVC Project with authentication as 
+   Individual User Accounts
+
+2. login to your google account and go to google developer console
+
+3. Create new project and Go to credentials, selected external mode
+
+4. Select OAuth client id and enter your project name, contact email
+   ande developer email.
+
+5. click, save and continue till the end. go back to dashboard
+
+6. Click on credentials > create credentials > select appplication type
+
+7. Enter the https://www.google.com in authroized javascript origin
+
+8. Enter the local host address of the project in authorized redirect
+   URls. It should be like this(localhost/signin-google) Click on create 
+
+9. copy paste your client id and client secret key into your startup.auth
+
+10. Search for google+ api and enable that library package.
+
+11. run the application and login with your gmail
+

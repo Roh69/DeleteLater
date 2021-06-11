@@ -1,0 +1,48 @@
+RDBMS											MongoDB
+__________________________________________________________________________________________________________________________________
+
+1)Relational Database Management System						1)Non-Relational DB OR Distributed database
+
+2)All info related to a document are stored in different tables		    		                  2)All Info Related to a document will be stored in a single 
+  following the normalization form. And Requires Joins for 					  place. To retrieve data, it is not required to perform join 
+  retrieval of data							       		   and hence retrieval is faster. 
+
+3)Data are stored in a structured manner i.e; in tables					3)Documents  are independent of each other and can be stored in 
+										  unstructured manner
+
+4)Performing CRUD operation using joins on these table are 					4)Can Easily Perform CRUD operations documemys
+  comaparatively difficult.
+
+										5)Retreived data is in json format which is understandable by any 
+										  programming language.
+
+6)Best Suited for complex queries.							6)Not good with complex queries.
+										
+7)Stores comaparatively lesser amount of data.						7)Can store huge amoun of data without any performance issues.
+
+8)Vertically Sacalable								8)Horizontally Scalable.
+
+
+
+============================================================================================================================================
+CRUD IN MONGODB - stored in form of json(js object notation)
+==============================================================================================================================================
+1)Create a DB using -------------------> use FirstDB
+2)Create a Collection -----------------> db.createCollection("Employee")
+3)Check all DBs------------------------> show dbs
+4)Check all collecction---------------->show collections
+5)Drop a Collection-------------------->db.collectionname.drop()
+6)Get name of current DB--------------->db.getName();
+7)INSERT------------------------------->db.collectionname.insert()	
+					db.collectionname.insertOne({})
+					db.collectionname.insertMany([{},{},{}])
+8)READ--------------------------------->db.collectionname.find()
+					db.collectionname.findOne()
+					db.collectionname.find.pretty()
+9)UPDATE------------------------------->db.collectionname.updateOne({key},{$set:{newvalue}})
+					db.collectionname.updateMany({key},{$set:{newvalue}})
+10)DELETE------------------------------>db.deleteOne({key})
+					db.deleteMany({key})
+
+
+						

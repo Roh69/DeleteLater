@@ -1,0 +1,61 @@
+==============================================================================================================================
+	Tree Model Structure with Parent References
+===============================================================================================================================
+db.Place.insertMany( [
+   { _id: "Rajgarh", parent: "Alwar" },
+   { _id: "Bhiwadi", parent: "Alwar" },
+   { _id: "Alwar", parent: "Rajasthan" },
+   { _id: "Jaipur", parent: "Rajasthan" },
+   { _id: "Chandigarh", parent: "Haryana" },
+   { _id: "Rajasthan", parent: "India" },
+   { _id: "Haryana", parent: "India" },
+   { _id: "India", parent: null }
+] )
+-->query to retrieve the parent of a node 
+   db.Place.findOne( { _id: "Rajasthan" } ).parent
+
+--> query by the parent field to find its immediate children nodes
+    db.Place.find( { parent: "Alwar" } )
+    db.Place.find( { parent: "India" } )
+
+==============================================================================================================================
+	Tree Model Structure with Childern References
+===============================================================================================================================
+db.Place.insertMany( [
+   { _id: "Rajgarh", children: [] },
+   { _id: "Bhiwadi", children: [] },
+   { _id: "Alwar", children: [ "Rajgarh", "Bhiwadi" ] },
+   { _id: "Jaipur", children: [] },
+   { _id: "Chandigarh", children: [] },
+   { _id: "Rajasthan", children: [ "Jaipur", "Alwar" ] },
+   { _id: "Haryana", children: [ "Chandigarh" ] },
+   { _id: "India", children: ["Rajasthan", "Haryana"] }
+] )
+
+-->query to retrieve the immediate children of a node 
+   db.Place.findOne( { _id: "Rajasthan" } ).children
+
+--> query for a node in the children field to find its parent node as well as its siblings
+    db.Place.find( { children: "Jaipur" } )
+
+
+
+==============================================================================================================================
+	Tree Model Structure with Array of References
+===============================================================================================================================
+db.Place.insertMany( [
+  { _id: "Rajgarh", ancestors: [ "India", "Rajasthan", "Alwar" ], parent: "Alwar" },
+  { _id: "Bhiwadi", ancestors: [ "India", "Rajasthan", "Alwar" ], parent: "Alwar" },
+  { _id: "Alwar", ancestors: [ "India", "Rajasthan" ], parent: "Rajasthan" },
+  { _id: "Jaipur", ancestors: [ "India", "Rajasthan" ], parent: "Rajasthan" },
+  { _id: "Chandigarh", ancestors: [ "India", "Haryana"  ], parent: "Haryana" },
+  { _id: "Rajasthan", ancestors: ["India" ], parent: "India" },
+  { _id: "Haryana", ancestors: ["India" ], parent: "India" },
+  { _id: "India", ancestors: [ ], parent: null }	
+] )
+
+-->query to retrieve the ancestors or path of a node
+    db.Place.findOne( { _id: "Rajgarh" } ).ancestors
+
+-->query by the field ancestors to find all its descendants:
+   db.Place.find( { ancestors: "Rajasthan" } )
