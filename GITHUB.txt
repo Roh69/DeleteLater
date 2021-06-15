@@ -75,3 +75,9 @@ MOVE FILES
 mkdir logs 
 git mv general.log logs/ 
 
+========================================================
+RENAME FILES
+==========================================================
+git mv GITHUB.txt github.txt
+
+
